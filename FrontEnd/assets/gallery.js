@@ -1,6 +1,8 @@
 const apiUrl = "http://localhost:5678/api";
 const gallery = document.querySelector(".gallery");
 const galleryMessage = document.querySelector("#gallery-message");
+const filters = document.querySelector(".filters");
+const filterMessage = document.querySelector("#filter-message");
 
 let works = [];
 
@@ -35,4 +37,35 @@ async function loadGallery() {
 	}
 }
 
+function renderFilters(categories) {
+	const allCategories = [{ id: 0, name: "Tous" }, ...categories];
+	filters.replaceChildren();
+
+	for (const category of allCategories) {
+		const button = document.createElement("button");
+		button.type = "button";
+		button.className = "filter-button";
+		button.textContent = category.name;
+		button.dataset.categoryId = category.id;
+		button.setAttribute("aria-pressed", String(category.id === 0));
+		filters.append(button);
+	}
+}
+
+async function loadCategories() {
+	try {
+		const response = await fetch(`${apiUrl}/categories`);
+		if (!response.ok) {
+			throw new Error("Unable to load categories");
+		}
+
+		const categories = await response.json();
+		renderFilters(categories);
+	} catch {
+		filterMessage.textContent = "Impossible de charger les filtres. Veuillez réessayer plus tard.";
+		filterMessage.hidden = false;
+	}
+}
+
 loadGallery();
+loadCategories();
