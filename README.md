@@ -34,6 +34,13 @@ Le fichier `.env` et les dépendances installées restent hors de Git.
 - Les étapes sont réalisées par groupes de deux : 0 et 1, 2 et 3, puis 4 et 5.1.
 - Le rattachement au dépôt GitHub nécessite une connexion GitHub valide et
   l'adresse du dépôt personnel. Aucun dépôt distant n'est encore configuré.
+
+## Avancement — Étape 5.1 incluse
+
+La galerie et les filtres utilisent les données de l'API. Le lien `login`
+ouvre `FrontEnd/login.html`, intégrée selon la maquette. Le formulaire de
+connexion est uniquement visuel : son bouton n'envoie pas les identifiants.
+L'authentification appartient à l'étape 5.2 et n'est pas implémentée ici.
  
 ## Astuce
  
