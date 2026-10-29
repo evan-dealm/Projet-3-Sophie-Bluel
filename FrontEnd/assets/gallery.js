@@ -5,6 +5,7 @@ const filters = document.querySelector(".filters");
 const filterMessage = document.querySelector("#filter-message");
 
 let works = [];
+let selectedCategoryId = 0;
 
 function renderWorks(projects) {
 	gallery.replaceChildren();
@@ -30,11 +31,25 @@ async function loadGallery() {
 		}
 
 		works = await response.json();
-		renderWorks(works);
+		selectCategory(selectedCategoryId);
 	} catch {
 		galleryMessage.textContent = "Impossible de charger les projets. Veuillez réessayer plus tard.";
 		galleryMessage.hidden = false;
 	}
+}
+
+function selectCategory(categoryId) {
+	selectedCategoryId = categoryId;
+	const projects = categoryId === 0
+		? works
+		: works.filter((project) => project.categoryId === categoryId);
+
+	for (const button of filters.querySelectorAll("button")) {
+		const isSelected = Number(button.dataset.categoryId) === categoryId;
+		button.setAttribute("aria-pressed", String(isSelected));
+	}
+
+	renderWorks(projects);
 }
 
 function renderFilters(categories) {
@@ -47,7 +62,8 @@ function renderFilters(categories) {
 		button.className = "filter-button";
 		button.textContent = category.name;
 		button.dataset.categoryId = category.id;
-		button.setAttribute("aria-pressed", String(category.id === 0));
+		button.setAttribute("aria-pressed", String(category.id === selectedCategoryId));
+		button.addEventListener("click", () => selectCategory(category.id));
 		filters.append(button);
 	}
 }
