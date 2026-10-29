@@ -26,6 +26,14 @@ Ouvrir le dossier Frontend et lancer liveserver de votre IDE
   ainsi que `GET /api/categories` avant de développer la galerie.
 
 Le fichier `.env` et les dépendances installées restent hors de Git.
+
+## Étape 1 — Versionnement
+
+- `main` conserve le code d'origine fourni pour le projet.
+- `dev` contient les évolutions, avec un commit par étape.
+- Les étapes sont réalisées par groupes de deux : 0 et 1, 2 et 3, puis 4 et 5.1.
+- Le rattachement au dépôt GitHub nécessite une connexion GitHub valide et
+  l'adresse du dépôt personnel. Aucun dépôt distant n'est encore configuré.
  
 ## Astuce
  
