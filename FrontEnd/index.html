@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./assets/api.js" defer></script>
 	<script src="./assets/gallery.js" defer></script>
+	<script src="./assets/editor.js" defer></script>
 </head>
 <body>
 <div class="edition-banner" hidden>✎ Mode édition</div>
@@ -66,5 +67,29 @@
 		</ul>
 	</nav>
 </footer>
+<dialog id="editor" aria-labelledby="editor-title">
+    <button id="editor-back" class="dialog-icon back" type="button" aria-label="Retour à la galerie" hidden>←</button>
+    <button id="editor-close" class="dialog-icon close" type="button" aria-label="Fermer la fenêtre">×</button>
+    <h2 id="editor-title">Galerie photo</h2>
+    <p id="editor-message" role="status" hidden></p>
+    <div id="editor-gallery-view">
+        <div id="editor-gallery"></div>
+        <div class="dialog-actions"><button id="add-photo" class="primary-button" type="button">Ajouter une photo</button></div>
+    </div>
+    <form id="add-work-form" hidden>
+        <div class="upload-zone">
+            <span class="upload-icon" aria-hidden="true">▧</span>
+            <label class="upload-label" for="work-image">+ Ajouter photo</label>
+            <input id="work-image" name="image" type="file" accept="image/jpeg,image/png" required>
+            <p>jpg, png : 4 Mo max</p>
+            <img id="image-preview" alt="Aperçu de la photo sélectionnée" hidden>
+        </div>
+        <label for="work-title">Titre</label>
+        <input id="work-title" name="title" type="text" required>
+        <label for="work-category">Catégorie</label>
+        <select id="work-category" name="category" required><option value=""></option></select>
+        <div class="dialog-actions"><button id="validate-work" class="primary-button" type="submit" disabled>Valider</button></div>
+    </form>
+</dialog>
 </body>
 </html>
