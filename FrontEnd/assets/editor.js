@@ -25,6 +25,7 @@ function renderEditorWorks() {
         remove.className = "delete-work";
         remove.textContent = "▤";
         remove.setAttribute("aria-label", `Supprimer ${work.title}`);
+        remove.addEventListener("click", () => deleteWork(work.id, remove));
         figure.append(image, remove);
         editorGallery.append(figure);
     }
@@ -47,3 +48,36 @@ editor.addEventListener("click", (event) => {
 });
 document.querySelector("#add-photo").addEventListener("click", () => showEditorView(true));
 backButton.addEventListener("click", () => showEditorView(false));
+
+function reportEditorError(error) {
+    if (error.status === 401) {
+        sessionStorage.removeItem(tokenKey);
+        editorMessage.textContent = "Votre session a expiré. Reconnectez-vous pour continuer.";
+        document.querySelector("#edit-projects").hidden = true;
+        document.querySelector(".edition-banner").hidden = true;
+        filters.hidden = false;
+        const link = document.querySelector("#session-link");
+        link.textContent = "login";
+        link.href = "./login.html";
+    } else {
+        editorMessage.textContent = "Opération impossible. Vérifiez le serveur et réessayez.";
+    }
+    editorMessage.hidden = false;
+}
+
+async function deleteWork(id, button) {
+    button.disabled = true;
+    editorMessage.hidden = true;
+    try {
+        await apiRequest(`/works/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${getToken()}` },
+        });
+        works = works.filter((work) => work.id !== id);
+        selectCategory(selectedCategoryId);
+        renderEditorWorks();
+    } catch (error) {
+        reportEditorError(error);
+        button.disabled = false;
+    }
+}
