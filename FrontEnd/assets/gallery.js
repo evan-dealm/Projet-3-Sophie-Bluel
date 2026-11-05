@@ -1,4 +1,3 @@
-const apiUrl = "http://localhost:5678/api";
 const gallery = document.querySelector(".gallery");
 const galleryMessage = document.querySelector("#gallery-message");
 const filters = document.querySelector(".filters");
@@ -85,3 +84,17 @@ async function loadCategories() {
 
 loadGallery();
 loadCategories();
+
+const isAuthenticated = Boolean(getToken());
+document.querySelector(".edition-banner").hidden = !isAuthenticated;
+document.querySelector("#edit-projects").hidden = !isAuthenticated;
+filters.hidden = isAuthenticated;
+if (isAuthenticated) {
+    const sessionLink = document.querySelector("#session-link");
+    sessionLink.textContent = "logout";
+    sessionLink.href = "./index.html";
+    sessionLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        logout();
+    });
+}

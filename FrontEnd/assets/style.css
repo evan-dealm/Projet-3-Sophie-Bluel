@@ -294,3 +294,17 @@ footer nav ul {
 	font-size: 14px;
 }
 
+
+[hidden] { display: none !important; }
+.edition-banner {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 21px 0;
+    background: #000;
+    color: #fff;
+    text-align: center;
+}
+.portfolio-heading { display: flex; justify-content: center; align-items: baseline; gap: 30px; }
+#edit-projects { border: 0; background: transparent; font: inherit; cursor: pointer; }
+#login-error { color: #a22316; line-height: 1.5; margin-bottom: 20px; }
+button:disabled { cursor: default; }
