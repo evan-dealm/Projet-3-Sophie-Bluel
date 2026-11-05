@@ -23,7 +23,7 @@ function renderEditorWorks() {
         const remove = document.createElement("button");
         remove.type = "button";
         remove.className = "delete-work";
-        remove.textContent = "▤";
+        remove.textContent = "";
         remove.setAttribute("aria-label", `Supprimer ${work.title}`);
         remove.addEventListener("click", () => deleteWork(work.id, remove));
         figure.append(image, remove);
@@ -39,6 +39,7 @@ document.querySelector("#edit-projects").addEventListener("click", () => {
     renderEditorWorks();
     showEditorView(false);
     editor.showModal();
+    updateSubmitButton();
 });
 document.querySelector("#editor-close").addEventListener("click", closeEditor);
 editor.addEventListener("click", (event) => {
@@ -59,6 +60,8 @@ function reportEditorError(error) {
         const link = document.querySelector("#session-link");
         link.textContent = "login";
         link.href = "./login.html";
+        link.replaceWith(link.cloneNode(true));
+        updateSubmitButton();
     } else {
         editorMessage.textContent = "Opération impossible. Vérifiez le serveur et réessayez.";
     }
@@ -105,7 +108,7 @@ function isValidImage(file) {
 
 function updateSubmitButton() {
     validateButton.disabled = submitting || !getToken() || !isValidImage(imageInput.files[0])
-        || !addWorkForm.title.value.trim() || !categorySelect.value;
+        || !addWorkForm.elements.namedItem("title").value.trim() || !categorySelect.value;
 }
 
 function clearPreview() {
@@ -153,7 +156,7 @@ addWorkForm.addEventListener("submit", async (event) => {
     updateSubmitButton();
     editorMessage.hidden = true;
     const data = new FormData(addWorkForm);
-    data.set("title", addWorkForm.title.value.trim());
+    data.set("title", addWorkForm.elements.namedItem("title").value.trim());
     try {
         const createdWork = await apiRequest("/works", {
             method: "POST",
@@ -173,5 +176,24 @@ addWorkForm.addEventListener("submit", async (event) => {
     } finally {
         submitting = false;
         updateSubmitButton();
+    }
+});
+
+document.addEventListener("works-loaded", () => {
+    if (editor.open) renderEditorWorks();
+});
+imagePreview.addEventListener("error", () => {
+    clearPreview();
+    imageInput.value = "";
+    editorMessage.textContent = "Cette image est illisible. Choisissez un autre fichier.";
+    editorMessage.hidden = false;
+    updateSubmitButton();
+});
+
+// Fermer également depuis un contrôle du formulaire au clavier.
+editor.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        event.preventDefault();
+        closeEditor();
     }
 });

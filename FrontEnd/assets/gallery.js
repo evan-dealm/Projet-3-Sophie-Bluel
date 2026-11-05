@@ -31,6 +31,8 @@ async function loadGallery() {
 		}
 
 		works = await response.json();
+		galleryMessage.hidden = true;
+		document.dispatchEvent(new Event("works-loaded"));
 		selectCategory(selectedCategoryId);
 	} catch {
 		galleryMessage.textContent = "Impossible de charger les projets. Veuillez réessayer plus tard.";
@@ -86,6 +88,8 @@ async function loadCategories() {
 
 loadGallery();
 loadCategories();
+
+
 
 const isAuthenticated = Boolean(getToken());
 document.querySelector(".edition-banner").hidden = !isAuthenticated;
