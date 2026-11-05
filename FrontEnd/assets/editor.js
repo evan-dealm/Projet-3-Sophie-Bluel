@@ -81,3 +81,93 @@ async function deleteWork(id, button) {
         button.disabled = false;
     }
 }
+
+const imageInput = document.querySelector("#work-image");
+const imagePreview = document.querySelector("#image-preview");
+const categorySelect = document.querySelector("#work-category");
+const validateButton = document.querySelector("#validate-work");
+let previewUrl = null;
+let submitting = false;
+
+function renderCategoryOptions() {
+    categorySelect.replaceChildren(new Option("", ""));
+    for (const category of categories) {
+        categorySelect.add(new Option(category.name, category.id));
+    }
+}
+document.addEventListener("categories-loaded", renderCategoryOptions);
+renderCategoryOptions();
+
+function isValidImage(file) {
+    return file && ["image/jpeg", "image/png"].includes(file.type)
+        && file.size > 0 && file.size <= 4 * 1024 * 1024;
+}
+
+function updateSubmitButton() {
+    validateButton.disabled = submitting || !getToken() || !isValidImage(imageInput.files[0])
+        || !addWorkForm.title.value.trim() || !categorySelect.value;
+}
+
+function clearPreview() {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = null;
+    imagePreview.removeAttribute("src");
+    imagePreview.hidden = true;
+    for (const element of document.querySelectorAll(".upload-zone > :not(input):not(img)")) element.hidden = false;
+}
+
+imageInput.addEventListener("change", () => {
+    clearPreview();
+    editorMessage.hidden = true;
+    const file = imageInput.files[0];
+    if (file && !isValidImage(file)) {
+        imageInput.value = "";
+        editorMessage.textContent = "Choisissez une image JPG ou PNG de 4 Mo maximum.";
+        editorMessage.hidden = false;
+    } else if (file) {
+        previewUrl = URL.createObjectURL(file);
+        imagePreview.src = previewUrl;
+        imagePreview.hidden = false;
+        for (const element of document.querySelectorAll(".upload-zone > :not(input):not(img)")) element.hidden = true;
+    }
+    updateSubmitButton();
+});
+addWorkForm.addEventListener("input", updateSubmitButton);
+editor.addEventListener("close", () => {
+    if (!submitting) {
+        addWorkForm.reset();
+        clearPreview();
+        updateSubmitButton();
+    }
+});
+
+addWorkForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    updateSubmitButton();
+    if (validateButton.disabled) {
+        editorMessage.textContent = "Ajoutez une photo, un titre et une catégorie valides.";
+        editorMessage.hidden = false;
+        return;
+    }
+    submitting = true;
+    updateSubmitButton();
+    editorMessage.hidden = true;
+    const data = new FormData(addWorkForm);
+    data.set("title", addWorkForm.title.value.trim());
+    try {
+        const createdWork = await apiRequest("/works", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${getToken()}` },
+            body: data,
+        });
+        addWorkForm.reset();
+        clearPreview();
+        editorMessage.textContent = "Photo ajoutée. Rechargez la page pour l'afficher.";
+        editorMessage.hidden = false;
+    } catch (error) {
+        reportEditorError(error);
+    } finally {
+        submitting = false;
+        updateSubmitButton();
+    }
+});

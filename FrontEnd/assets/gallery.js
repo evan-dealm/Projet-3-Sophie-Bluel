@@ -4,6 +4,7 @@ const filters = document.querySelector(".filters");
 const filterMessage = document.querySelector("#filter-message");
 
 let works = [];
+let categories = [];
 let selectedCategoryId = 0;
 
 function renderWorks(projects) {
@@ -74,7 +75,8 @@ async function loadCategories() {
 			throw new Error("Unable to load categories");
 		}
 
-		const categories = await response.json();
+		categories = await response.json();
+		document.dispatchEvent(new Event("categories-loaded"));
 		renderFilters(categories);
 	} catch {
 		filterMessage.textContent = "Impossible de charger les filtres. Veuillez réessayer plus tard.";
