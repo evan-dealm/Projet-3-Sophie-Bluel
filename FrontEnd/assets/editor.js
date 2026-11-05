@@ -162,7 +162,11 @@ addWorkForm.addEventListener("submit", async (event) => {
         });
         addWorkForm.reset();
         clearPreview();
-        editorMessage.textContent = "Photo ajoutée. Rechargez la page pour l'afficher.";
+        works.push({ ...createdWork, categoryId: Number(createdWork.categoryId) });
+        selectCategory(selectedCategoryId);
+        renderEditorWorks();
+        showEditorView(false);
+        editorMessage.textContent = "Photo ajoutée avec succès.";
         editorMessage.hidden = false;
     } catch (error) {
         reportEditorError(error);
