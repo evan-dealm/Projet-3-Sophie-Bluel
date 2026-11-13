@@ -1,95 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./assets/api.js" defer></script>
 	<script src="./assets/gallery.js" defer></script>
 	<script src="./assets/editor.js" defer></script>
 </head>
-<body>
-<div class="edition-banner" hidden>✎ Mode édition</div>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li><a href="#portfolio">projets</a></li>
-			<li><a href="#contact">contact</a></li>
-			<li><a id="session-link" href="./login.html">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
-		<article>
-			<h2>Designer d'espace</h2>
-			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
-		</article>
-	</section>
-	<section id="portfolio">
-		<div class="portfolio-heading"><h2>Mes Projets</h2><button id="edit-projects" type="button" hidden>✎ modifier</button></div>
-		<div class="filters" role="group" aria-label="Filtrer les projets par catégorie"></div>
-		<p id="filter-message" role="status" hidden></p>
-		<p id="gallery-message" role="status" hidden></p>
-		<div class="gallery"></div>
-	</section>
-	<section id="contact">
-		<h2>Contact</h2>
-		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" method="post">
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email">
-			<label for="message">Message</label>
-			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
-		</form>
-	</section>
-</main>
 
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
-<dialog id="editor" aria-labelledby="editor-title">
-    <button id="editor-back" class="dialog-icon back" type="button" aria-label="Retour à la galerie" hidden>←</button>
-    <button id="editor-close" class="dialog-icon close" type="button" aria-label="Fermer la fenêtre">×</button>
-    <h2 id="editor-title">Galerie photo</h2>
-    <p id="editor-message" role="status" hidden></p>
-    <div id="editor-gallery-view">
-        <div id="editor-gallery"></div>
-        <div class="dialog-actions"><button id="add-photo" class="primary-button" type="button">Ajouter une photo</button></div>
-    </div>
-    <form id="add-work-form" hidden>
-        <div class="upload-zone">
-            <span class="upload-icon" aria-hidden="true"></span>
-            <label class="upload-label" for="work-image">+ Ajouter photo</label>
-            <input id="work-image" name="image" type="file" accept="image/jpeg,image/png" required>
-            <p>jpg, png : 4 Mo max</p>
-            <img id="image-preview" alt="Aperçu de la photo sélectionnée" hidden>
-        </div>
-        <label for="work-title">Titre</label>
-        <input id="work-title" name="title" type="text" required>
-        <label for="work-category">Catégorie</label>
-        <select id="work-category" name="category" required><option value=""></option></select>
-        <div class="dialog-actions"><button id="validate-work" class="primary-button" type="submit" disabled>Valider</button></div>
-    </form>
-</dialog>
+<body>
+	<div class="edition-banner" hidden>✎ Mode édition</div>
+	<header>
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<li><a href="#portfolio">projets</a></li>
+				<li><a href="#contact">contact</a></li>
+				<li><a id="session-link" href="./login.html">login</a></li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+			</figure>
+			<article>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+					finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+					couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+					chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
+					décorateur(trice)</p>
+			</article>
+		</section>
+		<section id="portfolio">
+			<div class="portfolio-heading">
+				<h2>Mes Projets</h2><button id="edit-projects" type="button" hidden>✎ modifier</button>
+			</div>
+			<div class="filters" role="group" aria-label="Filtrer les projets par catégorie"></div>
+			<p id="filter-message" role="status" hidden></p>
+			<p id="gallery-message" role="status" hidden></p>
+			<div class="gallery"></div>
+		</section>
+		<section id="contact">
+			<h2>Contact</h2>
+			<p>Vous avez un projet ? Discutons-en !</p>
+			<form action="#" method="post">
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+				<label for="message">Message</label>
+				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				<input type="submit" value="Envoyer">
+			</form>
+		</section>
+	</main>
+
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+	<dialog id="editor" aria-labelledby="editor-title">
+		<button id="editor-back" class="dialog-icon back" type="button" aria-label="Retour à la galerie"
+			hidden>←</button>
+		<button id="editor-close" class="dialog-icon close" type="button" aria-label="Fermer la fenêtre">×</button>
+		<h2 id="editor-title">Galerie photo</h2>
+		<p id="editor-message" role="status" hidden></p>
+		<div id="editor-gallery-view">
+			<div id="editor-gallery"></div>
+			<div class="dialog-actions"><button id="add-photo" class="primary-button" type="button">Ajouter une
+					photo</button></div>
+		</div>
+		<form id="add-work-form" hidden>
+			<div class="upload-zone">
+				<span class="upload-icon" aria-hidden="true"></span>
+				<label class="upload-label" for="work-image">+ Ajouter photo</label>
+				<input id="work-image" name="image" type="file" accept="image/jpeg,image/png" required>
+				<p>jpg, png : 4 Mo max</p>
+				<img id="image-preview" alt="Aperçu de la photo sélectionnée" hidden>
+			</div>
+			<label for="work-title">Titre</label>
+			<input id="work-title" name="title" type="text" required>
+			<label for="work-category">Catégorie</label>
+			<select id="work-category" name="category" required>
+				<option value=""></option>
+			</select>
+			<div class="dialog-actions"><button id="validate-work" class="primary-button" type="submit"
+					disabled>Valider</button></div>
+		</form>
+	</dialog>
 </body>
+
 </html>
