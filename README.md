@@ -32,9 +32,9 @@ Le fichier `.env` et les dépendances installées restent hors de Git.
 - `main` conserve le code d'origine fourni pour le projet.
 - `dev` contient les évolutions, avec un commit par étape.
 - Chaque étape possède son propre commit sur `dev`.
-- Le rattachement au dépôt GitHub nécessite une connexion GitHub valide et
-  l'adresse du dépôt personnel. Aucun dépôt distant n'est encore configuré.
-
+- GitHub : https://github.com/evan-dealm/Projet-3-Sophie-Bluel (private)
+- Branche par défaut pour la soutenance : `dev`.
+- L’examinateur doit avoir un accès GitHub au dépôt privé.
 ## Avancement — Étape 9
 
 Toutes les fonctionnalités demandées sont implémentées : galerie et filtres,
